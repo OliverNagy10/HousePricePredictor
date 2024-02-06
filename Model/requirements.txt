@@ -1,0 +1,3 @@
+﻿pip install flask scikit-learn pandas
+pip install joblib
+pip install xgboost
