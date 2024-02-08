@@ -48,4 +48,7 @@ The .NET MAUI Mobile App serves as the frontend of the House Price Prediction Sy
 - 
 
 ### Demo Video 
+  <div style="display:flex; justify-content:center;">
   <img src="https://github.com/OliverNagy10/HousePricePredictor/blob/main/Resources/Images/Demo.gif" alt="Image 3" >
+</div>
+
