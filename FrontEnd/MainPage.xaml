@@ -1,6 +1,8 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HousePricePredictorUK.MainPage">
+             xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+            x:Class="HousePricePredictorUK.MainPage"
+              WidthRequest="350" HeightRequest="700">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -12,8 +14,7 @@
         <Frame BorderColor="CadetBlue" CornerRadius="30" Grid.RowSpan="2" Margin="20" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="firstFrame">
             <StackLayout Spacing="30">
 
-                <Image Source="logo.png"/>
-
+            <Image Source="logo.png"/> 
 
 
                 <!-- Entry fields for user input -->
@@ -52,7 +53,7 @@
 
               
                 <!-- Picker for Property Type -->
-                    <Picker x:Name="PropertyTypePicker" Title="Property Type"  TextColor="CadetBlue">
+                <Picker x:Name="PropertyTypePicker" Title="Property Type"  TextColor="CadetBlue" TitleColor="CadetBlue">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>Detached</x:String>
@@ -65,7 +66,7 @@
                     </Picker>
 
                     <!-- Button to toggle visibility of the second frame -->
-                <Button BackgroundColor="CadetBlue" Text="Next" Clicked="OnNextClicked" Grid.Row="1" HorizontalOptions="EndAndExpand"  Margin="0,20"  VerticalOptions="EndAndExpand"/>
+                <Button BackgroundColor="#457173" Text="Next" Clicked="OnNextClicked" Grid.Row="1" HorizontalOptions="EndAndExpand"  Margin="0,20"  VerticalOptions="EndAndExpand"/>
 
                 <!-- Button to trigger prediction -->
                 <!-- Label to display the predicted price -->
@@ -78,19 +79,38 @@
         <Frame BorderColor="CadetBlue" CornerRadius="30" Margin="20" Grid.Row="1" IsVisible="False" x:Name="secondFrame">
             <StackLayout Spacing="50">
 
-                <Image Source="logo.png"/>
+               <Image Source="logo.png"/> 
                 <Entry x:Name="YearEntry" Placeholder="Predict From (e.g 2024)" Keyboard="Numeric" TextColor="CadetBlue" PlaceholderColor="CadetBlue"/>
                 <Entry x:Name="CurrentPriceEntry" Placeholder="Current Price of House" Keyboard="Numeric" TextColor="CadetBlue" PlaceholderColor="CadetBlue"/>
                 <StackLayout Orientation="Horizontal" >
                     <Label  Text="Old Build" HorizontalOptions="StartAndExpand" VerticalOptions="End" TextColor="CadetBlue" Margin="0,0,0,15" />
-                    <Switch x:Name="NewBuildSwitch" IsToggled="false" OnColor="CadetBlue" ThumbColor="CadetBlue" HorizontalOptions="CenterAndExpand"/>
+                    <Switch x:Name="NewBuildSwitch" IsToggled="false" OnColor="#457173" ThumbColor="#457173" HorizontalOptions="CenterAndExpand"/>
                     <Label  Text="New Build" HorizontalOptions="EndAndExpand" VerticalOptions="End" TextColor="CadetBlue" Margin="0,0,0,15" />
+                  
                 </StackLayout>
-                <Label x:Name="PredictionLabel" Text="Predicted Price: " HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,40" />
+               
+               
+
                 <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
-                    <Button Text="Back" Clicked="OnBackClicked" Margin="0,0,10,20" BackgroundColor="CadetBlue" HorizontalOptions="StartAndExpand" />
-                    <Button Text="Predict" Clicked="OnPredictClicked" Margin="0,0,0,20" BackgroundColor="CadetBlue" HorizontalOptions="EndAndExpand" />
+                    <Button Text="Back" Clicked="OnBackClicked" Margin="0,0,10,20" BackgroundColor="#457173" HorizontalOptions="StartAndExpand" />
+                    <Button Text="Predict" Clicked="OnPredictClicked" Margin="0,0,0,20" BackgroundColor="#457173" HorizontalOptions="EndAndExpand" />
                 </StackLayout>
+            </StackLayout>
+        </Frame>
+
+
+        <Frame BorderColor="CadetBlue" CornerRadius="30" Margin="20" Grid.Row="1" x:Name="thirdFrame" IsVisible="False">
+            <StackLayout Spacing="50">
+
+              
+
+                <StackLayout Orientation="Vertical" VerticalOptions="EndAndExpand">
+                    <micro:ChartView x:Name="PriceChart" HeightRequest="300" />
+                    <micro:ChartView x:Name="PercetangeChart" HeightRequest="280" />
+                    
+                </StackLayout>
+
+                <Button Text="New Prediciton" Clicked="OnNewClicked" Margin="0,0,10,20" BackgroundColor="#457173" HorizontalOptions="CenterAndExpand" />
             </StackLayout>
         </Frame>
 

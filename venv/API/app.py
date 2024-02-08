@@ -49,6 +49,9 @@ def predict():
             user_input_data['Year'] += 1  # Update year for the next prediction
             current_price = predicted_price  # Update current price for the next prediction
 
+        # Log the predictions and growth rates
+        print("Predictions:", predictions)
+        print("Growth Rates:", growth_rates)
 
         # Return the predictions and growth rates for the next 3 years
         response_data = {
@@ -61,6 +64,4 @@ def predict():
         return jsonify({'error': str(e)}), 400
 
 if __name__ == '__main__':
-    
-    app.run(host='0.0.0.0', port=5000)
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

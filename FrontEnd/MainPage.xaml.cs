@@ -1,15 +1,12 @@
-﻿using System;
-using System.Net.Http;
-using System.Reflection;
-using System.Text;
-using static Microsoft.Maui.ApplicationModel.Permissions;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using System.Text;
+using Microcharts;
+using SkiaSharp;
 
 namespace HousePricePredictorUK
 {
     public partial class MainPage : ContentPage
     {
-        private const string ApiUrl = "http://127.0.0.1:5000/predict"; // Replace this with your actual API endpoint
+        private const string ApiUrl = "http://192.168.1.5:5000/predict"; //API endpoint
         private List<string> townCityList = new List<string>
 {
    "ABBOTS LANGLEY",
@@ -1317,6 +1314,8 @@ namespace HousePricePredictorUK
 "PORTSMOUTH"
 
         };
+        private List<double> predictedPrices = new List<double>();
+
 
         public MainPage()
         {
@@ -1326,7 +1325,11 @@ namespace HousePricePredictorUK
             townCitySearchResults.ItemSelected += CityListView_ItemSelected;
             CountySearchResults.ItemSelected += CountyListView_ItemSelected;
         }
-    
+
+
+
+
+
 
         private async void OnPredictClicked(object sender, EventArgs e)
         {
@@ -1363,36 +1366,86 @@ namespace HousePricePredictorUK
                     // Deserialize the JSON response to get the prediction
                     dynamic predictionData = Newtonsoft.Json.JsonConvert.DeserializeObject(responseContent);
 
-                    // Get the predicted prices and growth rates from the response
+                    // Get the predicted prices from the response
                     dynamic predictions = predictionData.predictions;
                     dynamic growthRates = predictionData.growth_rates;
 
+                    // Clear the list before storing new predictions
+                    predictedPrices.Clear();
+
+                    // Store the predictions in the global variable
+                    for (int i = 0; i < predictions.Count; i++)
+                    {
+                        double predictedPrice = Convert.ToDouble(predictions[i]);
+                        predictedPrices.Add(predictedPrice);
+                    }
+
+                    // Create an array of ChartEntry to hold the chart data for Price
+                    var priceEntries = new List<ChartEntry>();
+
+                    // Create an array of ChartEntry to hold the chart data for Percentage Increase
+                    var percentageEntries = new List<ChartEntry>();
+
+                    // Add predicted prices and percentage increase as entries to the charts
+                    int startingYear = int.Parse(YearEntry.Text);
+                    double initialPrice = Convert.ToDouble(CurrentPriceEntry.Text);
+                    for (int i = 0; i < predictedPrices.Count; i++)
+                    {
+                        double growthRate = (predictedPrices[i] - initialPrice) / initialPrice * 100;
+
+                        priceEntries.Add(new ChartEntry((float)predictedPrices[i])
+                        {
+                            Label = (startingYear + i).ToString(),
+                            ValueLabel = "£" + predictedPrices[i].ToString("#,##0.00"),
+                            Color = SKColor.Parse("#457173") // You can customize the color
+                        });
+
+                        percentageEntries.Add(new ChartEntry((float)growthRate)
+                        {
+                            Label = (startingYear + i).ToString(),
+                            ValueLabel = growthRate.ToString("F2") + "%",
+                            Color = SKColor.Parse("#457173") // You can customize the color
+                        });
+                    }
+
+                    // Create a bar chart with the price entries
+                    var priceChart = new BarChart() { Entries = priceEntries, LabelOrientation = Orientation.Horizontal , ValueLabelOrientation = Orientation.Horizontal };
+
+                    // Create a line chart with the percentage increase entries
+                    var percentageChart = new LineChart() { Entries = percentageEntries, LabelOrientation = Orientation.Horizontal ,ValueLabelOrientation  = Orientation.Horizontal};
+
+                    // Set the charts to the ChartViews
+                    PriceChart.Chart = priceChart;
+                    PercetangeChart.Chart = percentageChart;
+
                     // Display the predictions and growth rates
-                    PredictionLabel.Text = "Predictions and Growth Rates:";
+              
                     for (int i = 0; i < predictions.Count; i++)
                     {
                         double predictedPrice = Convert.ToDouble(predictions[i]);
                         double growthRate = Convert.ToDouble(growthRates[i]);
 
                         // Update the UI with the prediction and growth rate
-                        PredictionLabel.Text += $"\nYear {i + 1}: Predicted Price: {predictedPrice:C}, Growth Rate: {growthRate * 100:F2}%";
+                       
+                        thirdFrame.IsVisible = true;    
                     }
                 }
                 else
                 {
                     // Display error message if the response is not successful
-                    PredictionLabel.Text = "Error: Failed to get predictions";
+                    
                 }
             }
             catch (Exception ex)
             {
                 // Display error message if an exception occurs
-                PredictionLabel.Text = $"Error: {ex.Message}";
+                
             }
         }
 
 
-        private  void OnTownCityTextChanged(object sender, TextChangedEventArgs e)
+
+        private void OnTownCityTextChanged(object sender, TextChangedEventArgs e)
         {
 
 
@@ -1424,7 +1477,7 @@ namespace HousePricePredictorUK
             catch (Exception ex)
             {
                 // Handle errors
-                PredictionLabel.Text = $"Error: {ex.Message}";
+           
             }
         }
 
@@ -1459,7 +1512,7 @@ namespace HousePricePredictorUK
             catch (Exception ex)
             {
                 // Handle errors
-                PredictionLabel.Text = $"Error: {ex.Message}";
+               
             }
         }
 
@@ -1468,6 +1521,7 @@ namespace HousePricePredictorUK
             if (e.SelectedItem != null)
             {
                 TownCityEntry.Text = e.SelectedItem.ToString();
+                CityFrame.IsVisible = false;
             }
         }
 
@@ -1476,6 +1530,7 @@ namespace HousePricePredictorUK
             if (e.SelectedItem != null)
             {
                 CountyEntry.Text = e.SelectedItem.ToString();
+                CountyFrame.IsVisible = false;
             }
         }
 
@@ -1495,6 +1550,14 @@ namespace HousePricePredictorUK
             firstFrame.IsVisible = true;
 
         }
+        private void OnNewClicked(object sender, EventArgs e)
+        {
+            secondFrame.IsVisible = true;
+            firstFrame.IsVisible = true;
+            thirdFrame.IsVisible = false;
+
+        }
+
 
 
 
