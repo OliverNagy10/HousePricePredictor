@@ -1,22 +1,104 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HousePricePredictorUK.MainPage">
 
-    <StackLayout Padding="20">
-        <!-- Entry fields for user input -->
-        <Entry x:Name="YearEntry" Placeholder="Year" Keyboard="Numeric" />
-        <Entry x:Name="TownCityEntry" Placeholder="Town/City" />
-        <Entry x:Name="CountyEntry" Placeholder="County" />
-        <Entry x:Name="CurrentPriceEntry" Placeholder="Current Price" />
-        <Entry x:Name="PropertyTypeEntry" Placeholder="Property Type" />
-        <Switch x:Name="NewBuildSwitch" IsToggled="false" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <!-- Button to trigger prediction -->
-        <Button Text="Predict" Clicked="OnPredictClicked" />
+        <!-- First Frame: City/Town Entry, County Entry, Property Type Entry, and ListView -->
+        <Frame BorderColor="CadetBlue" CornerRadius="30" Grid.RowSpan="2" Margin="20" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="firstFrame">
+            <StackLayout Spacing="30">
 
-        <!-- Label to display the predicted price -->
-        <Label x:Name="PredictionLabel" Text="Predicted Price: " />
-    </StackLayout>
+                <Image Source="logo.png"/>
+
+
+
+                <!-- Entry fields for user input -->
+                <Entry x:Name="TownCityEntry" Placeholder="Enter City"
+                   PlaceholderColor="CadetBlue"   TextChanged="OnTownCityTextChanged"  TextColor="CadetBlue"/>
+
+                <!-- AutoSuggestBox for Town/City -->
+                <Frame  x:Name="CityFrame" BorderColor="CadetBlue" CornerRadius="30" Margin="0,0,0,0" IsVisible="False">
+                    <ScrollView>
+                    <ListView x:Name="townCitySearchResults" ItemsSource="{Binding TownCitySearchResults}" HeightRequest="75">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                    <TextCell Text="{Binding}" TextColor="CadetBlue"  />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollView>
+                </Frame>
+
+                <!-- Entry field for County -->
+                <Entry x:Name="CountyEntry" Placeholder="Enter County"
+                     PlaceholderColor="CadetBlue"  TextChanged="OnCountyTextChanged" TextColor="CadetBlue" />
+
+                <!-- Frame around the ListView for County -->
+                <Frame x:Name="CountyFrame" BorderColor="CadetBlue" CornerRadius="30" Margin="0,0,0,0"  IsVisible="False" >
+                    <ScrollView>
+                        <ListView x:Name="CountySearchResults" ItemsSource="{Binding CountySearchResults}" HeightRequest="75">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextCell Text="{Binding}" TextColor="CadetBlue" />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollView>
+                </Frame>
+
+              
+                <!-- Picker for Property Type -->
+                    <Picker x:Name="PropertyTypePicker" Title="Property Type"  TextColor="CadetBlue">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Detached</x:String>
+                                <x:String>Flat</x:String>
+                                <x:String>Semi-Detached</x:String>
+                                <x:String>Other</x:String>
+                                <x:String>Terraced</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+
+                    <!-- Button to toggle visibility of the second frame -->
+                <Button BackgroundColor="CadetBlue" Text="Next" Clicked="OnNextClicked" Grid.Row="1" HorizontalOptions="EndAndExpand"  Margin="0,20"  VerticalOptions="EndAndExpand"/>
+
+                <!-- Button to trigger prediction -->
+                <!-- Label to display the predicted price -->
+               
+
+            </StackLayout>
+        </Frame>
+
+        <!-- Second Frame: Year Entry, Current Price Entry, and New/Old Property Type Switch -->
+        <Frame BorderColor="CadetBlue" CornerRadius="30" Margin="20" Grid.Row="1" IsVisible="False" x:Name="secondFrame">
+            <StackLayout Spacing="50">
+
+                <Image Source="logo.png"/>
+                <Entry x:Name="YearEntry" Placeholder="Predict From (e.g 2024)" Keyboard="Numeric" TextColor="CadetBlue" PlaceholderColor="CadetBlue"/>
+                <Entry x:Name="CurrentPriceEntry" Placeholder="Current Price of House" Keyboard="Numeric" TextColor="CadetBlue" PlaceholderColor="CadetBlue"/>
+                <StackLayout Orientation="Horizontal" >
+                    <Label  Text="Old Build" HorizontalOptions="StartAndExpand" VerticalOptions="End" TextColor="CadetBlue" Margin="0,0,0,15" />
+                    <Switch x:Name="NewBuildSwitch" IsToggled="false" OnColor="CadetBlue" ThumbColor="CadetBlue" HorizontalOptions="CenterAndExpand"/>
+                    <Label  Text="New Build" HorizontalOptions="EndAndExpand" VerticalOptions="End" TextColor="CadetBlue" Margin="0,0,0,15" />
+                </StackLayout>
+                <Label x:Name="PredictionLabel" Text="Predicted Price: " HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,40" />
+                <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
+                    <Button Text="Back" Clicked="OnBackClicked" Margin="0,0,10,20" BackgroundColor="CadetBlue" HorizontalOptions="StartAndExpand" />
+                    <Button Text="Predict" Clicked="OnPredictClicked" Margin="0,0,0,20" BackgroundColor="CadetBlue" HorizontalOptions="EndAndExpand" />
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+
+
+
+
+
+
+    </Grid>
 
 </ContentPage>
