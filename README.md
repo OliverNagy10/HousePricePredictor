@@ -45,3 +45,7 @@ The .NET MAUI Mobile App serves as the frontend of the House Price Prediction Sy
 - User Interface: Utilizes Xamarin.Forms for creating the user interface components, including input fields, buttons, and charts.
 - HTTP Communication: Uses HttpClient to communicate with the Flask API for making predictions and retrieving results.
 - Visualization: Displays predicted prices and growth rates using charts and graphical representations, allowing users to explore the data interactively.
+- 
+
+### Demo Video 
+  <img src="https://github.com/OliverNagy10/HousePricePredictor/blob/main/Resources/Images/Demo.gif" alt="Image 3" >
