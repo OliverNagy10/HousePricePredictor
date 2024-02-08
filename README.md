@@ -51,7 +51,7 @@ The Flask API serves as the backend of the House Price Prediction System, respon
 The .NET MAUI Mobile App serves as the frontend of the House Price Prediction System, allowing users to input parameters and visualize predicted prices and growth rates. Key features of the .NET MAUI Mobile App include:
 
 - Cross-Platform Development: Developed using the .NET MAUI framework for targeting iOS, Android, and Windows platforms.
-- User Interface: Utilizes Xamarin.Forms for creating the user interface components, including input fields, buttons, and charts.
+- User Interface: User Interface: Utilizes .NET MAUI framework and Microcharts for creating user interface components, including input fields, buttons, and charts.
 - HTTP Communication: Uses HttpClient to communicate with the Flask API for making predictions and retrieving results.
 - Visualization: Displays predicted prices and growth rates using charts and graphical representations, allowing users to explore the data interactively.
 - 
