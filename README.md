@@ -5,8 +5,8 @@ The House Price Prediction System is a  project that combines machine learning w
 
 <div style="display:flex;">
   <img src="https://github.com/OliverNagy10/HousePricePredictor/blob/main/Resources/Images/starting_page.png" alt="Image 1" style="width:30%; margin-right:5px;">
-  <img src="path_to_image2" alt="Image 2" style="width:30%; margin-right:5px;">
-  <img src="path_to_image3" alt="Image 3" style="width:30%;">
+  <img src="https://github.com/OliverNagy10/HousePricePredictor/blob/main/Resources/Images/predict_page.png" alt="Image 2" style="width:30%; margin-right:5px;">
+  <img src="https://github.com/OliverNagy10/HousePricePredictor/blob/main/Resources/Images/prediciton.png" alt="Image 3" style="width:30%;">
 </div>
 
 ### The Model:
