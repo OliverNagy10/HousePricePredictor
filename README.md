@@ -19,7 +19,7 @@ The model development process involves several steps:
 2. Model Selection: Various regression algorithms are considered for training the model, including Ridge Regression, ElasticNet, Random Forest Regression, Gradient Boosting Regression, and XGBoost Regression. These algorithms are evaluated based on performance metrics such as Mean Squared Error, Mean Absolute Error, R-squared Score, and Explained Variance Score.
 3. Model Training: The chosen algorithm, Ridge Regression, is trained on the entire dataset using the preprocessed features.
 4. Model Evaluation: The trained model is evaluated on a test dataset to assess its performance. Performance metrics are calculated, including Mean Squared Error, Mean Absolute Error, R-squared Score, and Explained Variance Score.
-5. Model Deployment: The trained model is saved to a file using the joblib library. Additionally, the model is saved to Google Drive for easy access and deployment.
+5. Model Deployment: The trained model is saved to a file using the joblib library.
 
 R^2 Score: 0.7067 (Testing)
 Explained Variance Score: 0.7067 (Testing)
