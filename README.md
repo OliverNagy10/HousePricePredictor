@@ -3,6 +3,12 @@
 ## Overview
 The House Price Prediction System is a  project that combines machine learning with web and mobile technologies to predict housing prices based on various parameters. The system comprises three main components: the House Price Prediction Model, the Flask API, and the .NET MAUI Mobile App.
 
+<div style="display:flex;">
+  <img src="https://github.com/OliverNagy10/HousePricePredictor/blob/main/Resources/Images/starting_page.png" alt="Image 1" style="width:30%; margin-right:5px;">
+  <img src="path_to_image2" alt="Image 2" style="width:30%; margin-right:5px;">
+  <img src="path_to_image3" alt="Image 3" style="width:30%;">
+</div>
+
 ### The Model:
 #### Dataset
 The dataset used for training the model contains information on UK house prices, including features like:
