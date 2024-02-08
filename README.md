@@ -1,7 +1,7 @@
 # House Price Prediction System
 
 ## Overview
-The House Price Prediction System is a software project that combines machine learning with web and mobile technologies to predict housing prices based on various parameters. The system comprises three main components: the House Price Prediction Model, the Flask API, and the .NET MAUI Mobile App.
+The House Price Prediction System is a  project that combines machine learning with web and mobile technologies to predict housing prices based on various parameters. The system comprises three main components: the House Price Prediction Model, the Flask API, and the .NET MAUI Mobile App.
 
 ### The Model:
 #### Dataset
